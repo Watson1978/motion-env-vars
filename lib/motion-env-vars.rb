@@ -13,13 +13,18 @@ require 'plist'
 class Motion::Project::Config
   variable :env_vars
 
-  def env_vars=(path_yaml)
+  def env_vars=(path_or_hash)
     path_plist = File.join(self.resources_dirs.first, 'env-vars.plist')
     FileUtils.rm_rf(path_plist) if File.exist?(path_plist)
 
-    yaml = YAML.load(File.open(File.expand_path(path_yaml)).read)
+    if path_or_hash.is_a?(Hash)
+      env_vars = path_or_hash
+    else
+      env_vars = YAML.load(File.open(File.expand_path(path_or_hash)).read)
+    end
+
     File.open(path_plist, "w") do |f|
-      f.write yaml.to_plist
+      f.write env_vars.to_plist
     end
     system "plutil -convert binary1 '#{path_plist}'"
   end
