@@ -1,6 +1,8 @@
 # motion-env-vars
 
-TODO: Write a gem description
+Set ENV_VARS hash which is available in RubyMotion app.
+
+You can set variables from yaml file or hash in Rakefile.
 
 ## Installation
 
@@ -20,6 +22,8 @@ Or install it yourself as:
 
 in you Rakefile
 
+#### From yaml file
+
 ```
 Motion::Project::App.setup do |app|
   ...
@@ -35,10 +39,32 @@ consumer_key: xxx
 consumer_secret: XXX
 ```
 
-in app code after build, motion-my_env define ENV_VARS constant variable as Hash.
+in app code after build, motion-env-vars define ENV_VARS constant variable as Hash.
 
 ```
 p ENV_VARS #=> { 'consumer_key' => 'xxx', 'consumer_secret' => 'XXX' }
+```
+
+#### From hash
+
+```
+Motion::Project::App.setup do |app|
+  ...
+  app.env_vars = { 'consumer_key' => 'xxx', 'consumer_secret' => 'XXX' }
+  ...
+end
+```
+
+You can also use shell ENV
+
+```
+  app.env_vars = ENV.to_hash
+```
+
+Or selectively
+
+```
+  app.env_vars = { 'CUSTOMER_KEY' => ENV['CUSTOMER_KEY'], 'CUSTOMER_SECRET' => ENV['CUSTOMER_SECRET'] }
 ```
 
 ## Contributing
