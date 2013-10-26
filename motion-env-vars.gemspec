@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.version       = VERSION
   spec.authors       = ["Watson"]
   spec.email         = ["watson1978@gmail.com"]
-  spec.description   = %q{Write a gem description}
-  spec.summary       = %q{Write a gem summary}
+  spec.description   = %q{Set ENV_VARS hash which is available in RubyMotion app}
+  spec.summary       = %q{Set ENV_VARS hash which is available in RubyMotion app}
   spec.homepage      = ""
   spec.license       = ""
 
