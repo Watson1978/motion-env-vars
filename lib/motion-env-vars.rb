@@ -14,8 +14,12 @@ class Motion::Project::Config
   variable :env_vars
 
   def env_vars=(path_or_hash)
-    path_plist = File.join(self.resources_dirs.first, 'env-vars.plist')
-    FileUtils.rm_rf(path_plist) if File.exist?(path_plist)
+    dir_path = "/tmp/motion-env-vars"
+    path_plist = File.join(dir_path, "env-vars.plist")
+    @resources_dirs << dir_path
+
+    FileUtils.rm_rf(dir_path)  if File.exist?(dir_path)
+    FileUtils.mkdir_p(dir_path)
 
     if path_or_hash.is_a?(Hash)
       env_vars = path_or_hash
