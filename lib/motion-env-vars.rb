@@ -15,7 +15,7 @@ class Motion::Project::Config
 
   def env_vars=(path_yaml)
     path_plist = File.join(self.resources_dirs.first, 'env-vars.plist')
-    return if File.exist?(path_plist) && File.mtime(path_yaml) < File.mtime(path_plist)
+    FileUtils.rm_rf(path_plist) if File.exist?(path_plist)
 
     yaml = YAML.load(File.open(File.expand_path(path_yaml)).read)
     File.open(path_plist, "w") do |f|
